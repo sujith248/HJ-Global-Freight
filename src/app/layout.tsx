@@ -22,9 +22,9 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className={montserrat.className}>
-            <body className="bg-[#faf8f7] text-neutral-800">
+            <body className="bg-[#faf8f7] text-neutral-800 flex flex-col min-h-screen">
                 <Navbar />
-                {children}
+                <main className="flex-grow w-full">{children}</main>
             </body>
         </html>
     );

@@ -7,10 +7,10 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          DEFAULT: '#C21111',  // Brand primary (Red)
-          hover: '#F11818',    // Hover state of brand color
-          light: '#FFEBEB',    // A lighter tint for subtle backgrounds or highlights
-          dark: '#9E0F0F',     // A darker shade for accents, borders, or hover states
+          DEFAULT: '#C21111',  
+          hover: '#F11818',    
+          light: '#FFEBEB',    
+          dark: '#9E0F0F',     
         },
 
         neutral: {
@@ -28,28 +28,28 @@ const config: Config = {
 
         background: {
           DEFAULT: '#FFFFFF',
-          light: '#F9FAFB',    // For sections, modals, and panels
-          dark: '#111827',     // For dark-mode background
+          light: '#F9FAFB',   
+          dark: '#111827',     
         },
 
         text: {
-          DEFAULT: '#111827',  // Primary text color (dark grey for good legibility)
-          heading: '#1F2937',  // Slightly lighter for headings
-          muted: '#6B7280',    // Muted text for less important info
-          inverse: '#FFFFFF',  // Text on dark backgrounds
+          DEFAULT: '#111827', 
+          heading: '#1F2937', 
+          muted: '#6B7280', 
+          inverse: '#FFFFFF',  
         },
 
         accent: {
-          DEFAULT: '#FF6F00', // A bold, warm accent color for CTAs (orange/golden hue)
+          DEFAULT: '#FF6F00', 
           hover: '#FF8B1F',
         },
 
-        success: '#16A34A', // Green (indicates success or completed steps)
-        warning: '#F59E0B', // Amber (alerts and warnings)
-        error: '#DC2626',   // Red (error states, form validations)
+        success: '#16A34A', 
+        warning: '#F59E0B', 
+        error: '#DC2626',  
 
-        info: '#3B82F6',    // Blue (informational alerts, hints)
-        highlight: '#FDE68A'// Soft yellow highlight for emphasis
+        info: '#3B82F6',   
+        highlight: '#FDE68A'
       },
     },
   },
