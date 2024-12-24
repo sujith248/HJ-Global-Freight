@@ -3,16 +3,16 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
     HomeIcon,
     InformationCircleIcon,
     TruckIcon,
     PhoneIcon,
-    DocumentMagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
 import { usePathname } from 'next/navigation';
-import Logo from '../../../public/logo.png';
-import { AnimatePresence, motion } from 'framer-motion';
+import LogoWhite from '../../../public/logo black.png';
+import LogoBlack from '../../../public/logo white.png';
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -21,20 +21,12 @@ export default function Navbar() {
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 50); // Add background if scrolled > 50px
+            setScrolled(window.scrollY > 50);
         };
-
-        setMobileMenuOpen(false);
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
-    const mobileMenuVariants = {
-        hidden: { opacity: 0, y: -20 },
-        visible: { opacity: 1, y: 0 },
-        exit: { opacity: 0, y: -20 },
-    };
 
     const navLinks = [
         { href: '/', label: 'Home', icon: <HomeIcon className="h-5 w-5" /> },
@@ -69,15 +61,15 @@ export default function Navbar() {
             >
                 <Link href="/" aria-label="Go to homepage">
                     <Image
-                        src={Logo}
+                        src={
+                            scrolled || pathname !== '/' ? LogoWhite : LogoBlack
+                        }
                         alt="HJ Global Freight Company - Logo"
                         className="h-[80px] w-auto"
                         priority
                     />
                 </Link>
-
-                {/* Desktop Menu */}
-                <div className="hidden lg1050:flex lg1050:items-center lg1050:space-x-6 z">
+                <div className="hidden lg920:flex lg920:items-center lg920:space-x-6">
                     {navLinks.map((link) => (
                         <Link
                             key={link.href}
@@ -95,7 +87,7 @@ export default function Navbar() {
                 </div>
 
                 {/* Mobile Menu Button */}
-                <div className="lg1050:hidden flex items-center">
+                <div className="lg920:hidden flex items-center">
                     <button
                         type="button"
                         className="inline-flex items-center justify-center p-2 hover:text-brand focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand"
@@ -138,42 +130,47 @@ export default function Navbar() {
                     </button>
                 </div>
             </nav>
+
             <AnimatePresence>
                 {mobileMenuOpen && (
-                    <motion.div
+                    <motion.aside
                         key="mobile-menu"
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                        variants={mobileMenuVariants}
+                        initial={{ x: '-100%' }}
+                        animate={{ x: 0 }}
+                        exit={{ x: '-100%' }}
                         transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        className="lg1100:hidden bg-[#faf8f7] shadow-md"
-                        id="mobile-menu"
+                        className="fixed top-0 left-0 bottom-0 w-64 bg-white shadow-lg z-40"
                     >
-                        <div className="space-y-1 px-4 pb-4 pt-2">
-                            {navLinks.map((link) => (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    className={`flex items-center space-x-1 rounded px-3 py-2 text-base font-medium ${
-                                        pathname === link.href
-                                            ? 'text-brand bg-neutral-100'
-                                            : 'text-neutral-800 hover:bg-neutral-100 hover:text-brand'
-                                    } focus:outline-none focus:ring-2 focus:ring-brand transition-colors duration-200`}
-                                >
-                                    {link.icon}
-                                    <span>{link.label}</span>
-                                </Link>
-                            ))}
-                            <Link
-                                href="/quote"
-                                className="mt-2 flex items-center justify-center space-x-1 rounded bg-brand px-3 py-2 text-white font-semibold shadow hover:bg-brand-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-hover transition-colors duration-200"
+                        <div className="flex flex-col h-full">
+                            <button
+                                type="button"
+                                className="p-4 text-left text-brand font-semibold focus:outline-none"
+                                onClick={() => setMobileMenuOpen(false)}
                             >
-                                <DocumentMagnifyingGlassIcon className="h-5 w-5" />
-                                <span>Get a Quote</span>
-                            </Link>
+                                Close
+                            </button>
+                            <ul className="flex-grow space-y-1 px-4 py-2">
+                                {navLinks.map((link) => (
+                                    <li key={link.href}>
+                                        <Link
+                                            href={link.href}
+                                            onClick={() =>
+                                                setMobileMenuOpen(false)
+                                            }
+                                            className={`flex items-center space-x-2 px-3 py-2 text-base font-medium rounded ${
+                                                pathname === link.href
+                                                    ? 'text-brand bg-neutral-100'
+                                                    : 'text-neutral-800 hover:text-brand hover:bg-neutral-100'
+                                            }`}
+                                        >
+                                            {link.icon}
+                                            <span>{link.label}</span>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
-                    </motion.div>
+                    </motion.aside>
                 )}
             </AnimatePresence>
         </header>
