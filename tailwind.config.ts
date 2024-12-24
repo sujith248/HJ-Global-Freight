@@ -6,7 +6,7 @@ const config: Config = {
   theme: {
     extend: {
       screens: {
-        lg1100: '1100px',
+        lg1050: '1050px',
       },
       colors: {
         brand: {

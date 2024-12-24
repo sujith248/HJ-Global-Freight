@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
     HomeIcon,
     InformationCircleIcon,
@@ -11,17 +10,25 @@ import {
     PhoneIcon,
     DocumentMagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
-import Logo from '../../../public/logo.png';
 import { usePathname } from 'next/navigation';
+import Logo from '../../../public/logo.png';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const pathname = usePathname();
 
-    // Close mobile menu on route change
     useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 50); // Add background if scrolled > 50px
+        };
+
         setMobileMenuOpen(false);
-    }, [pathname]);
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const mobileMenuVariants = {
         hidden: { opacity: 0, y: -20 },
@@ -49,13 +56,13 @@ export default function Navbar() {
     ];
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 bg-brand-light text-neutral-800 shadow-md">
-            <a
-                href="#main-content"
-                className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:text-black focus:px-3 focus:py-2 focus:rounded"
-            >
-                Skip to main content
-            </a>
+        <header
+            className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+                scrolled || pathname !== '/'
+                    ? 'bg-brand-light text-neutral-800 shadow-md'
+                    : 'bg-transparent text-white'
+            }`}
+        >
             <nav
                 aria-label="Main Navigation"
                 className="flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
@@ -70,7 +77,7 @@ export default function Navbar() {
                 </Link>
 
                 {/* Desktop Menu */}
-                <div className="hidden lg1100:flex lg1100:items-center lg1100:space-x-6">
+                <div className="hidden lg1050:flex lg1050:items-center lg1050:space-x-6 z">
                     {navLinks.map((link) => (
                         <Link
                             key={link.href}
@@ -78,8 +85,8 @@ export default function Navbar() {
                             className={`inline-flex items-center space-x-1 px-3 py-2 text-base font-medium ${
                                 pathname === link.href
                                     ? 'text-brand border-b-2 border-brand'
-                                    : 'text-neutral-800 hover:text-brand'
-                            } transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand hover:scale-105`}
+                                    : 'hover:text-brand'
+                            } transition-colors duration-200`}
                         >
                             {link.icon}
                             <span>{link.label}</span>
@@ -87,21 +94,11 @@ export default function Navbar() {
                     ))}
                 </div>
 
-                {/* Desktop CTA */}
-                <div className="hidden lg1100:flex">
-                    <Link
-                        href="/quote"
-                        className="inline-flex items-center space-x-1 rounded bg-brand px-4 py-2 text-white font-semibold shadow-md hover:bg-brand-hover transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-hover"
-                    >
-                        <span>Get a Quote</span>
-                    </Link>
-                </div>
-
-                {/* Mobile menu button */}
-                <div className="lg1100:hidden flex items-center">
+                {/* Mobile Menu Button */}
+                <div className="lg1050:hidden flex items-center">
                     <button
                         type="button"
-                        className="inline-flex items-center justify-center p-2 text-neutral-800 hover:text-brand focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand"
+                        className="inline-flex items-center justify-center p-2 hover:text-brand focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand"
                         aria-controls="mobile-menu"
                         aria-expanded={mobileMenuOpen}
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -141,8 +138,6 @@ export default function Navbar() {
                     </button>
                 </div>
             </nav>
-
-            {/* Mobile Menu */}
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div

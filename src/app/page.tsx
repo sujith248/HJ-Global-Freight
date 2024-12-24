@@ -4,26 +4,41 @@ import Link from 'next/link';
 
 export default function HomePage() {
     return (
-        <main
-            id="main-content"
-            className="relative w-full h-full flex flex-col items-center justify-center min-h-screen"
-        >
-            <div className="max-w-2xl text-center px-4">
-                <h1 className="text-5xl font-bold mb-4">
-                    Global Solutions, Delivered
-                </h1>
-                <p className="text-lg mb-6">
-                    We provide seamless, efficient freight forwarding services
-                    worldwide, connecting your business with global markets at
-                    unparalleled speed and reliability.
-                </p>
-                <Link
-                    href="/quote"
-                    className="inline-block rounded bg-brand text-white px-5 py-3 font-medium hover:bg-brand-hover transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-hover"
-                >
-                    Get a Quote
-                </Link>
+        <main className="relative w-full h-screen">
+            {/* Video Background */}
+            <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+            >
+                <source src="/background.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+
+            {/* Overlay Content */}
+            <div className="relative z-10 flex items-center justify-center h-full text-center">
+                <div className="max-w-2xl px-4">
+                    <h1 className="text-5xl font-bold text-white mb-4">
+                        Global Solutions, Delivered
+                    </h1>
+                    <p className="text-lg text-white mb-6">
+                        We provide seamless, efficient freight forwarding
+                        services worldwide, connecting your business with global
+                        markets at unparalleled speed and reliability.
+                    </p>
+                    <Link
+                        href="/quote"
+                        className="inline-block rounded bg-brand text-white px-5 py-3 font-medium hover:bg-brand-hover transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-hover"
+                    >
+                        Get a Quote
+                    </Link>
+                </div>
             </div>
+
+            {/* Overlay Gradient for Better Text Contrast */}
+            <div className="absolute inset-0 bg-black bg-opacity-50 z-5"></div>
         </main>
     );
 }
