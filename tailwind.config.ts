@@ -5,6 +5,9 @@ const config: Config = {
   darkMode: 'class',
   theme: {
     extend: {
+      screens: {
+        lg1100: '1100px',
+      },
       colors: {
         brand: {
           DEFAULT: '#C21111',  

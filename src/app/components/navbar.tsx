@@ -58,19 +58,19 @@ export default function Navbar() {
             </a>
             <nav
                 aria-label="Main Navigation"
-                className="flex items-center justify-between max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8"
+                className="flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
             >
                 <Link href="/" aria-label="Go to homepage">
                     <Image
                         src={Logo}
                         alt="HJ Global Freight Company - Logo"
-                        className="h-20 w-auto"
+                        className="h-[80px] w-auto"
                         priority
                     />
                 </Link>
 
                 {/* Desktop Menu */}
-                <div className="hidden md:flex md:items-center md:space-x-6">
+                <div className="hidden lg1100:flex lg1100:items-center lg1100:space-x-6">
                     {navLinks.map((link) => (
                         <Link
                             key={link.href}
@@ -79,7 +79,7 @@ export default function Navbar() {
                                 pathname === link.href
                                     ? 'text-brand border-b-2 border-brand'
                                     : 'text-neutral-800 hover:text-brand'
-                            } transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand hover:scale-105`}
+                            } transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand hover:scale-105`}
                         >
                             {link.icon}
                             <span>{link.label}</span>
@@ -88,18 +88,17 @@ export default function Navbar() {
                 </div>
 
                 {/* Desktop CTA */}
-                <div className="hidden md:flex">
+                <div className="hidden lg1100:flex">
                     <Link
                         href="/quote"
                         className="inline-flex items-center space-x-1 rounded bg-brand px-4 py-2 text-white font-semibold shadow-md hover:bg-brand-hover transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-hover"
                     >
-                        <DocumentMagnifyingGlassIcon className="h-5 w-5" />
                         <span>Get a Quote</span>
                     </Link>
                 </div>
 
                 {/* Mobile menu button */}
-                <div className="md:hidden flex items-center">
+                <div className="lg1100:hidden flex items-center">
                     <button
                         type="button"
                         className="inline-flex items-center justify-center p-2 text-neutral-800 hover:text-brand focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand"
@@ -153,7 +152,7 @@ export default function Navbar() {
                         exit="exit"
                         variants={mobileMenuVariants}
                         transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        className="md:hidden bg-[#faf8f7] shadow-md"
+                        className="lg1100:hidden bg-[#faf8f7] shadow-md"
                         id="mobile-menu"
                     >
                         <div className="space-y-1 px-4 pb-4 pt-2">
