@@ -12,9 +12,16 @@ const LandingSection = () => {
                 playsInline
                 className="absolute inset-0 w-full h-full object-cover"
             >
-                <source src="/background.mp4" type="video/mp4" />
+                <source src="/videos/background.mp4" type="video/mp4" />
+                <track
+                    src="/captions.vtt"
+                    kind="captions"
+                    srcLang="en"
+                    label="English"
+                />
                 Your browser does not support the video tag.
             </video>
+
             <div className="relative z-10 flex items-center justify-center h-full text-center">
                 <div className="max-w-2xl px-4">
                     <h1 className="text-5xl font-bold text-white mb-4">

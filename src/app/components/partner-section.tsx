@@ -72,7 +72,7 @@ const PartnerSection = () => {
                     transition={{ duration: 0.8, delay: 0.4 }}
                 >
                     <Image
-                        src="/test.jpg"
+                        src="/images/test.webp"
                         alt="Freight Forwarding"
                         width={800}
                         height={600}

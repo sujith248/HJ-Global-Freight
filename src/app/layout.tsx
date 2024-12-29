@@ -10,9 +10,21 @@ const montserrat = Montserrat({
 });
 
 export const metadata = {
-    title: 'HJ Global Freight Company',
-    description:
-        'International Freight Forwarders - Global Logistics Solutions',
+    title: 'HJ Global Freight',
+    description: 'Seamless, efficient freight forwarding services worldwide.',
+    openGraph: {
+        title: 'HJ Global Freight',
+        description:
+            'Seamless, efficient freight forwarding services worldwide.',
+        images: [
+            {
+                url: '/images/logo-black.webp',
+                width: 800,
+                height: 600,
+                alt: 'HJ Global Freight Company Logo',
+            },
+        ],
+    },
 };
 
 export default function RootLayout({

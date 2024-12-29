@@ -11,8 +11,8 @@ import {
     PhoneIcon,
 } from '@heroicons/react/24/outline';
 import { usePathname } from 'next/navigation';
-import LogoWhite from '../../../public/logo black.png';
-import LogoBlack from '../../../public/logo white.png';
+import LogoWhite from '../../../public/images/logo black.png';
+import LogoBlack from '../../../public/images/logo white.png';
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
