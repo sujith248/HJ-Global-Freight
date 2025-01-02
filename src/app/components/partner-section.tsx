@@ -77,6 +77,7 @@ const PartnerSection = () => {
                         width={800}
                         height={600}
                         className="rounded-lg shadow-lg object-cover"
+                        loading="lazy"
                     />
                 </motion.div>
             </div>

@@ -14,8 +14,8 @@ export default function HomePage() {
             <PartnerSection />
             <ServicesSection />
             <ContactForm />
-            <ContactCards />
-            <FindUs />
+            {/* <ContactCards /> */}
+            {/* <FindUs /> */}
         </div>
     );
 }

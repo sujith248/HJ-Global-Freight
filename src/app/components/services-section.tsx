@@ -118,7 +118,7 @@ export default function ServicesSection() {
                                 {service.description}
                             </p>
                             <Link
-                                href="/about"
+                                href="/services"
                                 className="inline-block mt-6 bg-brand text-white px-6 py-3 font-medium rounded hover:bg-brand-hover transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand"
                             >
                                 Explore More

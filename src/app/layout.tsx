@@ -2,6 +2,8 @@ import 'tailwindcss/tailwind.css';
 import './globals.css';
 import { Montserrat } from 'next/font/google';
 import Navbar from './components/navbar';
+import WhatsAppChat from './components/whatsapp-chat';
+import Footer from './components/footer';
 
 const montserrat = Montserrat({
     subsets: ['latin'],
@@ -37,6 +39,8 @@ export default function RootLayout({
             <body className="bg-[#faf8f7] text-neutral-800 flex flex-col min-h-screen">
                 <Navbar />
                 <main className="flex-grow w-full">{children}</main>
+                <WhatsAppChat />
+                <Footer />
             </body>
         </html>
     );

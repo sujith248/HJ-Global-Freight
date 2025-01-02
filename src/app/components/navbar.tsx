@@ -11,29 +11,26 @@ import {
     PhoneIcon,
 } from '@heroicons/react/24/outline';
 import { usePathname } from 'next/navigation';
-import LogoBlack from '../../../public/images/logo black.png';
-import LogoWhite from '../../../public/images/logo white.png';
+import LogoBlack from '../../../public/images/logo-black.webp';
+import LogoWhite from '../../../public/images/logo-white.webp';
+
+const LOGO_DIMENSIONS = { width: 200, height: 80 };
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [hydrated, setHydrated] = useState(false); // Track hydration
     const pathname = usePathname();
 
     useEffect(() => {
-        setHydrated(true); // Mark hydration complete
         const handleScroll = () => {
             setScrolled(window.scrollY > 50);
         };
+        handleScroll();
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const logo = hydrated
-        ? scrolled || pathname !== '/'
-            ? LogoBlack
-            : LogoWhite
-        : LogoWhite;
+    const logo = scrolled || pathname !== '/' ? LogoBlack : LogoWhite;
 
     const navLinks = [
         { href: '/', label: 'Home', icon: <HomeIcon className="h-5 w-5" /> },
@@ -83,7 +80,7 @@ export default function Navbar() {
                                 pathname === link.href
                                     ? 'text-brand border-b-2 border-brand'
                                     : 'hover:text-brand'
-                            } transition-colors duration-200`}
+                            } transition-colors duration-100`}
                         >
                             {link.icon}
                             <span>{link.label}</span>

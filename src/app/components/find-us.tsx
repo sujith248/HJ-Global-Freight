@@ -1,6 +1,46 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+
 const FindUs = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const businessHours: Array<{ day: string; open: string; close: string }> = [
+        { day: 'Monday', open: '08:00', close: '20:00' },
+        { day: 'Tuesday', open: '08:00', close: '20:00' },
+        { day: 'Wednesday', open: '08:00', close: '20:00' },
+        { day: 'Thursday', open: '08:00', close: '20:00' },
+        { day: 'Friday', open: '08:00', close: '20:00' },
+        { day: 'Saturday', open: '08:00', close: '17:00' },
+        { day: 'Sunday', open: '08:00', close: '17:00' },
+    ];
+
+    useEffect(() => {
+        const checkIfOpen = () => {
+            const now = new Date();
+            const day = now.toLocaleString('en-AU', { weekday: 'long' });
+            const currentTime = now.getHours() * 60 + now.getMinutes();
+            const todayHours = businessHours.find((d) => d.day === day);
+
+            if (todayHours) {
+                const [openHour, openMinute] = todayHours.open
+                    .split(':')
+                    .map(Number);
+                const [closeHour, closeMinute] = todayHours.close
+                    .split(':')
+                    .map(Number);
+                const openTime = openHour * 60 + openMinute;
+                const closeTime = closeHour * 60 + closeMinute;
+
+                setIsOpen(currentTime >= openTime && currentTime <= closeTime);
+            }
+        };
+
+        checkIfOpen();
+        const interval = setInterval(checkIfOpen, 3600000);
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <section className="bg-white py-16 px-6 sm:px-12 lg:px-20">
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -20,43 +60,36 @@ const FindUs = () => {
                 </div>
 
                 <div className="bg-white flex flex-col gap-6">
-                    <h3 className="text-3xl font-bold text-brand text-center lg:text-left">
-                        Business Hours
-                    </h3>
+                    <div className="flex justify-between items-center">
+                        <h3 className="text-3xl font-bold text-brand text-center lg:text-left">
+                            Business Hours
+                        </h3>
+                        <span
+                            className={`px-4 py-1 text-sm font-bold rounded-full shadow-lg ${
+                                isOpen
+                                    ? 'bg-green-500 text-white'
+                                    : 'bg-red-500 text-white'
+                            }`}
+                        >
+                            {isOpen ? 'Open' : 'Closed'}
+                        </span>
+                    </div>
                     <ul className="text-neutral-700 text-lg space-y-4 bg-gray-100 rounded-lg p-6 shadow-lg">
-                        {[
-                            {
-                                day: 'Monday',
-                                time: '08:00 am – 08:00 pm',
-                            },
-                            {
-                                day: 'Tuesday',
-                                time: '08:00 am – 08:00 pm',
-                            },
-                            {
-                                day: 'Wednesday',
-                                time: '08:00 am – 08:00 pm',
-                            },
-                            {
-                                day: 'Thursday',
-                                time: '08:00 am – 08:00 pm',
-                            },
-                            {
-                                day: 'Friday',
-                                time: '08:00 am – 08:00 pm',
-                            },
-                            {
-                                day: 'Saturday',
-                                time: '08:00 am – 05:00 pm',
-                            },
-                            { day: 'Sunday', time: '08:00 am – 05:00 pm' },
-                        ].map((item, idx) => (
+                        {businessHours.map((item, idx) => (
                             <li
                                 key={idx}
                                 className="flex justify-between border-b border-gray-200 pb-2"
                             >
-                                <span>{item.day}</span>
-                                <span>{item.time}</span>
+                                <span
+                                    className={`${item.day === 'Thursday' ? 'font-bold' : 'font-normal'}`}
+                                >
+                                    {item.day}
+                                </span>
+                                <span
+                                    className={`${item.day === 'Thursday' ? 'font-bold' : 'font-normal'}`}
+                                >
+                                    {`${item.open} am - ${Number(item.close.split(':')[0]) - 12}:00 pm`}
+                                </span>
                             </li>
                         ))}
                     </ul>

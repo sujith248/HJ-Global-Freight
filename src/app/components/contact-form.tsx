@@ -4,14 +4,9 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-    FaUser,
-    FaEnvelope,
-    FaPaperPlane,
-    FaCheck,
-    FaPhone,
-} from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaPaperPlane, FaCheck } from 'react-icons/fa';
 import Image from 'next/image';
+import { Contacts, contacts } from '../constants/contacts';
 
 export default function ContactForm() {
     const [submitted, setSubmitted] = useState(false);
@@ -64,11 +59,11 @@ export default function ContactForm() {
                     For any freight enquiries, please fill out the form or call
                     us at:{' '}
                     <a
-                        href="tel:+61449115677"
+                        href={contacts[Contacts.PHONE].href}
                         className="text-brand text-xl font-semibold hover:underline"
-                        aria-label="Call us at +61 449 115 677"
+                        aria-label={`Call us at ${contacts[Contacts.PHONE].label}`}
                     >
-                        +61 449 115 677
+                        {contacts[Contacts.PHONE].label}
                     </a>
                 </p>
                 <p className="text-neutral-700 md:font-bold">
@@ -183,7 +178,7 @@ export default function ContactForm() {
                             <textarea
                                 name="message"
                                 id="message"
-                                placeholder="Message"
+                                placeholder="How can we help?"
                                 rows={4}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
