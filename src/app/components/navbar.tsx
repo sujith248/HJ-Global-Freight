@@ -29,8 +29,11 @@ export default function Navbar() {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+    console.log(!['/', '/about'].includes(pathname));
+    console.log(scrolled);
 
-    const logo = scrolled || pathname !== '/' ? LogoBlack : LogoWhite;
+    const logo =
+        scrolled || !['/', '/about'].includes(pathname) ? LogoBlack : LogoWhite;
 
     const navLinks = [
         { href: '/', label: 'Home', icon: <HomeIcon className="h-5 w-5" /> },
@@ -54,7 +57,7 @@ export default function Navbar() {
     return (
         <header
             className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-                scrolled || pathname !== '/'
+                scrolled || !['/', '/about'].includes(pathname)
                     ? 'bg-brand-light text-neutral-800 shadow-md'
                     : 'bg-transparent text-white'
             }`}
